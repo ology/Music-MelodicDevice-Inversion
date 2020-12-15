@@ -108,7 +108,6 @@ Create a new C<Music::MelodicDevice::Inversion> object.
 sub intervals {
     my ($self, $notes) = @_;
 
-    my @intervals;
     my @pitches;
 
     if ($self->scale_name eq 'chromatic') {
@@ -121,6 +120,7 @@ sub intervals {
     }
     print 'Pitches: ', ddc(\@pitches) if $self->verbose;
 
+    my @intervals;
     my $last;
 
     for my $pitch (@pitches) {
