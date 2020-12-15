@@ -63,6 +63,23 @@ has scale_name => (
     default => sub { 'chromatic' },
 );
 
+has _scale => (
+    is        => 'lazy',
+    init_args => undef,
+);
+
+sub _build__scale {
+    my ($self) = @_;
+
+    my @scale = get_scale_notes($self->scale_note, $self->scale_name);
+    print 'Scale: ', ddc(\@scale) if $self->verbose;
+
+    my @scale_octaves = map { my $o = $_; map { $_ . $o } @scale } -1 .. 9;
+    print 'Scale octaves: ', ddc(\@scale_octaves) if $self->verbose;
+
+    return \@scale_octaves;
+}
+
 =head2 verbose
 
 Default: C<0>
@@ -110,16 +127,10 @@ sub intervals {
         }
     }
     else {
-        my @scale = get_scale_notes($self->scale_note, $self->scale_name);
-        print 'Scale: ', ddc(\@scale) if $self->verbose;
-
-        my @scale_octaves = map { my $o = $_; map { $_ . $o } @scale } -1 .. 9;
-        print 'Scale octaves: ', ddc(\@scale_octaves) if $self->verbose;
-
         my @indices;
 
         for my $note (@$notes) {
-            push @indices, first_index { $_ eq $note } @scale_octaves;
+            push @indices, first_index { $_ eq $note } @{ $self->_scale };
         }
         print 'Indices: ', ddc(\@indices) if $self->verbose;
 
@@ -151,10 +162,7 @@ sub invert {
     my ($self, $note, $notes) = @_;
     my @inverted = ($note);
     my $intervals = $self->intervals($notes);
-    my @scale = get_scale_notes($self->scale_note, $self->scale_name);
-    print 'Scale: ', ddc(\@scale) if $self->verbose;
-    my @scale_octaves = map { my $o = $_; map { $_ . $o } @scale } -1 .. 9;
-    print 'Scale octaves: ', ddc(\@scale_octaves) if $self->verbose;
+    my @scale_octaves = @{ $self->_scale };
     for my $interval (@$intervals) {
         my $x = $scale_octaves[ (first_index { $_ eq $note } @scale_octaves) - $interval ];
         push @inverted, $x;
