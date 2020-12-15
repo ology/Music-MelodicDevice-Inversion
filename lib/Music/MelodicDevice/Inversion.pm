@@ -57,8 +57,9 @@ has scale_note => (
 
 Default: C<chromatic>
 
-For the chromatic scale, notes are given as sharps.  For a scale with
-flats, a diatonic B<scale_name> must be used with a flat B<scale_note>.
+For the chromatic scale, enharmonic notes are listed as sharps.  For a
+scale with flats, a diatonic B<scale_name> must be used with a flat
+B<scale_note>.
 
 =cut
 
