@@ -1,6 +1,8 @@
 Revision history for Music-MelodicDevice-Inversion
 
 {{$NEXT}}
+
+0.0103 2020-12-15 09:25:24
     - Fix MIDI octave range.
     - Reorder tests.
     - Improve documentation.
