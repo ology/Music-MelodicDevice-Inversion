@@ -6,7 +6,7 @@ our $VERSION = '0.0103';
 
 use Data::Dumper::Compact qw(ddc);
 use List::SomeUtils qw(first_index);
-use Music::Scales qw(get_scale_notes);
+use Music::Scales qw(get_scale_notes is_scale);
 use Music::Note;
 use Moo;
 use strictures 2;
@@ -61,7 +61,7 @@ Default: C<chromatic>
 
 has scale_name => (
     is      => 'ro',
-    isa     => sub { die "$_[0] is not a valid string" unless $_[0] =~ /^\w+$/ },
+    isa     => sub { die "$_[0] is not a valid scale name" unless is_scale($_[0]) },
     default => sub { 'chromatic' },
 );
 
