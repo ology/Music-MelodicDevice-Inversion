@@ -15,7 +15,7 @@ $expect = ['C4','G#3','A#3','F3','C3'];
 $got = $obj->invert('C4', $notes);
 is_deeply $got, $expect, 'invert';
 
-# https://music.stackexchange.com/questions/32507/what-is-melodic-inversion-and-how-to-do-it/32508
+# https://music.stackexchange.com/questions/32507/what-is-melodic-inversion-and-how-to-do-it/
 $notes = [qw(A4 C5 B4 A4 E5)];
 $expect = [qw(3 -1 -2 7)];
 $got = $obj->intervals($notes);
