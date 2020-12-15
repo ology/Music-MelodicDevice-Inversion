@@ -168,9 +168,9 @@ __END__
 
 =head1 SEE ALSO
 
-L<Music::AtonalUtil> (contains an "invert" method)
+L<Music::AtonalUtil> (contains a similar "invert" method)
 
-L<MIDI::Praxis::Variation> (contains an "inversion" function)
+L<MIDI::Praxis::Variation> (contains a mystery "inversion" function)
 
 L<Data::Dumper::Compact>
 
