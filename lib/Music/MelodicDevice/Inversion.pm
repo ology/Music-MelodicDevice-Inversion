@@ -172,6 +172,8 @@ __END__
 
 =head1 SEE ALSO
 
+The F<t/01-methods.t> and F<eg/> distribution programs
+
 L<Music::AtonalUtil> (contains a similar "invert" method)
 
 L<MIDI::Praxis::Variation> (contains a mystery "inversion" function)
