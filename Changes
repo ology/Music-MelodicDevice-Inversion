@@ -1,0 +1,5 @@
+Revision history for Music-MelodicDevice-Inversion
+
+{{$NEXT}}
+    - Add ->intervals method.
+    - Mint with Dist::Zilla.
