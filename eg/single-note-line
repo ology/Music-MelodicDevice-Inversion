@@ -33,6 +33,8 @@ for my $i (1 .. 4) {
     else {
         @notes = map { $scale[int rand @scale] } 1 .. 4;
     }
+
+    @notes = MIDI::Util::midi_format(@notes);
     print "@notes\n";
 
     $score->n('qn', $_) for @notes;
