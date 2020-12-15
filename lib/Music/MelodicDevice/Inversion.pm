@@ -75,10 +75,10 @@ sub _build__scale {
     my @scale = get_scale_notes($self->scale_note, $self->scale_name);
     print 'Scale: ', ddc(\@scale) if $self->verbose;
 
-    my @scale_octaves = map { my $o = $_; map { $_ . $o } @scale } -1 .. 9;
-    print 'Scale octaves: ', ddc(\@scale_octaves) if $self->verbose;
+    my @with_octaves = map { my $o = $_; map { $_ . $o } @scale } -1 .. 9;
+    print 'With octaves: ', ddc(\@with_octaves) if $self->verbose;
 
-    return \@scale_octaves;
+    return \@with_octaves;
 }
 
 =head2 verbose
