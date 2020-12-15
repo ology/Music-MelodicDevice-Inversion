@@ -36,4 +36,13 @@ $expect = [qw(C4 A3 B3 F3 C3)];
 $got = $obj->invert('C4', $notes);
 is_deeply $got, $expect, 'invert';
 
+# https://en.wikipedia.org/wiki/Inversion_(music)#Melodies
+$notes = [qw(G4 A4 G4 F4 G4 A4 B4 A4 G4 A4)];
+$expect = [qw(1 -1 -1 1 1 1 -1 -1 1)];
+$got = $obj->intervals($notes);
+is_deeply $got, $expect, 'intervals';
+$expect = [qw(D3 C3 D3 E3 D3 C3 B2 C3 D3 C3)];
+$got = $obj->invert('D3', $notes);
+is_deeply $got, $expect, 'invert';
+
 done_testing();
