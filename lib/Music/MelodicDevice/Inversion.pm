@@ -95,7 +95,11 @@ has verbose => (
 
 =head2 new
 
-  $md = Music::MelodicDevice::Inversion->new(scale_name => $scale);
+  $md = Music::MelodicDevice::Inversion->new(
+    scale_note => $scale_note,
+    scale_name => $scale_name,
+    verbose => $verbose,
+  );
 
 Create a new C<Music::MelodicDevice::Inversion> object.
 
