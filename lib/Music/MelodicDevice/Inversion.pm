@@ -5,7 +5,7 @@ package Music::MelodicDevice::Inversion;
 our $VERSION = '0.0100';
 
 use Data::Dumper::Compact qw(ddc);
-use List::SomeUtils qw(first_index uniq);
+use List::SomeUtils qw(first_index);
 use Music::Scales qw(get_scale_notes);
 use Music::Note;
 use Moo;
@@ -187,9 +187,15 @@ L<Music::AtonalUtil> (contains an "invert" method)
 
 L<MIDI::Praxis::Variation> (contains an "inversion" function)
 
+L<Data::Dumper::Compact>
+
+L<List::SomeUtils>
+
 L<Moo>
 
 L<Music::Note>
+
+L<Music::Scales>
 
 L<https://en.wikipedia.org/wiki/Inversion_(music)#Melodies>
 
