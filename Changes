@@ -1,6 +1,8 @@
 Revision history for Music-MelodicDevice-Inversion
 
 {{$NEXT}}
+
+0.0101 2020-12-15 06:38:01
     - Clean-up code.
     - Improve documentation.
     - Add the eg/single-note-line program.
