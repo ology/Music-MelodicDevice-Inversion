@@ -2,7 +2,7 @@ package Music::MelodicDevice::Inversion;
 
 # ABSTRACT: Apply melodic inversion to a series of notes
 
-our $VERSION = '0.0101';
+our $VERSION = '0.0102';
 
 use Data::Dumper::Compact qw(ddc);
 use List::SomeUtils qw(first_index);
