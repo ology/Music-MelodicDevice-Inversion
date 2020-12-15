@@ -3,6 +3,7 @@ Revision history for Music-MelodicDevice-Inversion
 {{$NEXT}}
     - Clean-up code.
     - Improve documentation.
+    - Add the eg/single-note-line program.
 
 0.0100 2020-12-15 01:41:18
     - Mint with Dist::Zilla.
