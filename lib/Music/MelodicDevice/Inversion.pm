@@ -157,15 +157,23 @@ sub intervals {
 
 sub invert {
     my ($self, $note, $notes) = @_;
+
     my @inverted = ($note);
+
     my $intervals = $self->intervals($notes);
+
     my @scale_octaves = @{ $self->_scale };
+
     for my $interval (@$intervals) {
         my $x = $scale_octaves[ (first_index { $_ eq $note } @scale_octaves) - $interval ];
+
         push @inverted, $x;
+
         $note = $x;
     }
+
     print 'Inverted: ', ddc(\@inverted) if $self->verbose;
+
     return \@inverted;
 }
 
