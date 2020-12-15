@@ -20,7 +20,7 @@ use namespace::clean;
 
   my $md = Music::MelodicDevice::Inversion->new(scale_name => 'major');
   my $intervals = $md->intervals(\@notes); # [2, -1, 3, 3]
-  my $inv = $md->invert('C4', \@notes); # [C4, A3, G3, D3, A2]
+  my $inv = $md->invert('C4', \@notes); # [C4, A3, B3, F3, C3]
 
   $md = Music::MelodicDevice::Inversion->new(scale_name => 'chromatic');
   $intervals = $md->intervals(\@notes); # [4, -2, 5, 5]
@@ -139,6 +139,29 @@ sub intervals {
 
     print 'Intervals: ', ddc(\@intervals) if $self->verbose;
     return \@intervals;
+}
+
+=head2 invert
+
+  $inverted = $md->invert($note, $notes);
+
+=cut
+
+sub invert {
+    my ($self, $note, $notes) = @_;
+    my @inverted = ($note);
+    my $intervals = $self->intervals($notes);
+    my @scale = get_scale_notes($self->scale_note, $self->scale_name);
+    print 'Scale: ', ddc(\@scale) if $self->verbose;
+    my @scale_octaves = map { my $o = $_; map { $_ . $o } @scale } -1 .. 9;
+    print 'Scale octaves: ', ddc(\@scale_octaves) if $self->verbose;
+    for my $interval (@$intervals) {
+        my $x = $scale_octaves[ (first_index { $_ eq $note } @scale_octaves) - $interval ];
+        push @inverted, $x;
+        $note = $x;
+    }
+    print 'Inverted: ', ddc(\@inverted) if $self->verbose;
+    return \@inverted;
 }
 
 1;
