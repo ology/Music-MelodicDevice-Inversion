@@ -25,7 +25,6 @@ my @scale = (
 );
 
 my @notes;
-my @inverted;
 
 for my $i (1 .. 4) {
     if ($i % 2 == 0) {
