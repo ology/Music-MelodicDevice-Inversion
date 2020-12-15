@@ -111,9 +111,7 @@ sub intervals {
     my @intervals;
 
     if ($self->scale_name eq 'chromatic') {
-        my $pitches = $notes->[0] =~ /^\d+$/
-            ? $notes
-            : [ map { Music::Note->new($_, 'ISO')->format('midinum') } @$notes ];
+        my $pitches = [ map { Music::Note->new($_, 'ISO')->format('midinum') } @$notes ];
         print 'Pitches: ', ddc($pitches) if $self->verbose;
 
         my $last;
