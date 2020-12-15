@@ -28,12 +28,12 @@ use namespace::clean;
 
 =head1 DESCRIPTION
 
-C<Music::MelodicDevice::Inversion> applies melodic inversions
-(chromatic and diatonic) to a series of notes.
+C<Music::MelodicDevice::Inversion> applies melodic inversions, both
+chromatic or diatonic, to a series of notes.
 
 While there are a couple modules on CPAN that do various versions of
 melodic inversion, none appear to apply to an arbitrary series of
-notes.
+notes.  Hence this module.
 
 This module performs interval inversion starting at a given note.
 
