@@ -124,25 +124,21 @@ sub intervals {
         }
     }
     else {
-        my @indices;
+        my @pitches;
 
         for my $note (@$notes) {
-            push @indices, first_index { $_ eq $note } @{ $self->_scale };
+            push @pitches, first_index { $_ eq $note } @{ $self->_scale };
         }
-        print 'Indices: ', ddc(\@indices) if $self->verbose;
-
-        my @diffs;
+        print 'Pitches: ', ddc(\@pitches) if $self->verbose;
 
         my $last;
 
-        for my $i (@indices) {
+        for my $pitch (@pitches) {
             if (defined $last) {
-                push @diffs, $i - $last;
+                push @intervals, $pitch - $last;
             }
-            $last = $i;
+            $last = $pitch;
         }
-
-        @intervals = @diffs;
     }
 
     print 'Intervals: ', ddc(\@intervals) if $self->verbose;
