@@ -18,13 +18,15 @@ use namespace::clean;
 
   my @notes = qw(C4 E4 D4 G4 C5);
 
-  my $md = Music::MelodicDevice::Inversion->new(scale_name => 'major');
-  my $intervals = $md->intervals(\@notes); # [2, -1, 3, 3]
-  my $inv = $md->invert('C4', \@notes); # [C4, A3, B3, F3, C3]
+  # Chromatic
+  my $md = Music::MelodicDevice::Inversion->new;
+  my $intervals = $md->intervals(\@notes); # [4, -2, 5, 5]
+  my $inv = $md->invert('C4', \@notes); # [C4, G#3, A#3, F3, C3]
 
-  $md = Music::MelodicDevice::Inversion->new(scale_name => 'chromatic');
-  $intervals = $md->intervals(\@notes); # [4, -2, 5, 5]
-  $inv = $md->invert('C4', \@notes); # [C4, G#3, A#3, F3, C3]
+  # Diatonic
+  $md = Music::MelodicDevice::Inversion->new(scale_name => 'major');
+  $intervals = $md->intervals(\@notes); # [2, -1, 3, 3]
+  $inv = $md->invert('C4', \@notes); # [C4, A3, B3, F3, C3]
 
 =head1 DESCRIPTION
 
