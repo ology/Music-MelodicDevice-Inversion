@@ -17,6 +17,15 @@ $expect = ['E5','C#5','D5','E5','A4'];
 $got = $obj->invert('E5', $notes);
 is_deeply $got, $expect, 'invert';
 
+# https://en.wikipedia.org/wiki/Inversion_(music)#Melodies
+$notes = ['A#4','E4','F#4','D#4','F4','A4','D5','C#5','G4','G#4','B4','C5'];
+$expect = [qw(-6 2 -3 2 4 5 -1 -6 1 3 1)];
+$got = $obj->intervals($notes);
+is_deeply $got, $expect, 'intervals';
+$expect = ['A#4','E5','D5','F5','D#5','B4','F#4','G4','C#5','C5','A4','G#4'];
+$got = $obj->invert('A#4', $notes);
+is_deeply $got, $expect, 'invert';
+
 $notes = [qw(C4 E4 D4 G4 C5)];
 $expect = [qw(4 -2 5 5)];
 $got = $obj->intervals($notes);
