@@ -29,11 +29,10 @@ my @inverted;
 
 for my $i (1 .. 4) {
     if ($i % 2 == 0) {
-        @notes = @inverted;
+        @notes = @{ $md->invert($scale_note . 5, \@notes) };
     }
     else {
         @notes = map { $scale[int rand @scale] } 1 .. 4;
-        @inverted = @{ $md->invert($scale_note . 5, \@notes) };
     }
     print "@notes\n";
 
