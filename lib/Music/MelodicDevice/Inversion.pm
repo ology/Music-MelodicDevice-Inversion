@@ -111,12 +111,12 @@ sub intervals {
     my @intervals;
 
     if ($self->scale_name eq 'chromatic') {
-        my $pitches = [ map { Music::Note->new($_, 'ISO')->format('midinum') } @$notes ];
-        print 'Pitches: ', ddc($pitches) if $self->verbose;
+        my @pitches = map { Music::Note->new($_, 'ISO')->format('midinum') } @$notes;
+        print 'Pitches: ', ddc(\@pitches) if $self->verbose;
 
         my $last;
 
-        for my $pitch (@$pitches) {
+        for my $pitch (@pitches) {
             if (defined $last) {
                 push @intervals, $pitch - $last;
             }
