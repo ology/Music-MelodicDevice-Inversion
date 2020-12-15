@@ -165,6 +165,7 @@ sub invert {
     my @scale_octaves = @{ $self->_scale };
 
     for my $interval (@$intervals) {
+        # Find the note that is the opposite interval away from the original note
         my $x = $scale_octaves[ (first_index { $_ eq $note } @scale_octaves) - $interval ];
 
         push @inverted, $x;
