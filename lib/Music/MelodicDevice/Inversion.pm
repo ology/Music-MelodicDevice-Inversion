@@ -109,6 +109,8 @@ Create a new C<Music::MelodicDevice::Inversion> object.
 
   $intervals = $md->intervals($notes);
 
+Return the positive or negative intervals between successive B<notes>.
+
 =cut
 
 sub intervals {
@@ -143,6 +145,8 @@ sub intervals {
 =head2 invert
 
   $inverted = $md->invert($note, $notes);
+
+Return the inverted series of notes.
 
 =cut
 
