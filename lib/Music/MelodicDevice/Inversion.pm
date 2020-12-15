@@ -151,11 +151,9 @@ sub invert {
 
     my $intervals = $self->intervals($notes);
 
-    my @scale = @{ $self->_scale };
-
     for my $interval (@$intervals) {
         # Find the note that is the opposite interval away from the original note
-        my $pitch = $scale[ (first_index { $_ eq $note } @scale) - $interval ];
+        my $pitch = $self->_scale->[ (first_index { $_ eq $note } @{ $self->_scale }) - $interval ];
 
         push @inverted, $pitch;
 
