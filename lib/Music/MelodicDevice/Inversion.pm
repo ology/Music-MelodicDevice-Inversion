@@ -32,7 +32,8 @@ use namespace::clean;
 
 C<Music::MelodicDevice::Inversion> applies intervallic melodic
 inversions, both chromatic or diatonic, to a series of ISO formatted
-notes.
+notes.  Basically, this flips a melody upside-down given a starting
+note.
 
 While there are a couple modules on CPAN that do various versions of
 melodic inversion, none appear to apply to an arbitrary series of
