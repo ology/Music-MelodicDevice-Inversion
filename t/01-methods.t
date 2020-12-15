@@ -13,6 +13,10 @@ my $expect = [qw(4 -2 5 5)];
 my $got = $obj->intervals($notes);
 is_deeply $got, $expect, 'intervals';
 
+$expect = [qw(C4 G#3 A#3 F3 C3)];
+$got = $obj->invert('C4', $notes);
+is_deeply $got, $expect, 'invert';
+
 $obj = new_ok 'Music::MelodicDevice::Inversion' => [
     scale_name => 'major',
 #    verbose => 1,
