@@ -109,36 +109,26 @@ sub intervals {
     my ($self, $notes) = @_;
 
     my @intervals;
+    my @pitches;
 
     if ($self->scale_name eq 'chromatic') {
-        my @pitches = map { Music::Note->new($_, 'ISO')->format('midinum') } @$notes;
+        @pitches = map { Music::Note->new($_, 'ISO')->format('midinum') } @$notes;
         print 'Pitches: ', ddc(\@pitches) if $self->verbose;
-
-        my $last;
-
-        for my $pitch (@pitches) {
-            if (defined $last) {
-                push @intervals, $pitch - $last;
-            }
-            $last = $pitch;
-        }
     }
     else {
-        my @pitches;
-
         for my $note (@$notes) {
             push @pitches, first_index { $_ eq $note } @{ $self->_scale };
         }
         print 'Pitches: ', ddc(\@pitches) if $self->verbose;
+    }
 
-        my $last;
+    my $last;
 
-        for my $pitch (@pitches) {
-            if (defined $last) {
-                push @intervals, $pitch - $last;
-            }
-            $last = $pitch;
+    for my $pitch (@pitches) {
+        if (defined $last) {
+            push @intervals, $pitch - $last;
         }
+        $last = $pitch;
     }
 
     print 'Intervals: ', ddc(\@intervals) if $self->verbose;
