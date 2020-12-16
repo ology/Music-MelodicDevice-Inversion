@@ -1,4 +1,8 @@
 #!/usr/bin/env perl
+
+# https://en.wikipedia.org/wiki/Inversion_(music)#Twelve-tone_music
+# Schönberg example
+
 use strict;
 use warnings;
 
