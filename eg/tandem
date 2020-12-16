@@ -1,0 +1,45 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+
+use Data::Dumper::Compact 'ddc';
+use lib map { "$ENV{HOME}/sandbox/$_/lib" } qw(MIDI-Util);
+use MIDI::Util;
+use Music::MelodicDevice::Inversion;
+use Music::Scales qw(get_scale_notes);
+
+my $max = shift || 4;
+my $scale_note = shift || 'C';
+my $scale_name = shift || 'chromatic';
+
+my $score = MIDI::Util::setup_score();
+
+my $md = Music::MelodicDevice::Inversion->new(
+    scale_note => $scale_note,
+    scale_name => $scale_name,
+#    verbose => 1,
+);
+
+my @scale = (
+    (map { $_ . 4 } get_scale_notes($scale_note, $scale_name)),
+    (map { $_ . 5 } get_scale_notes($scale_note, $scale_name)),
+);
+
+my $notes = [ map { $scale[int rand @scale] } 1 .. $max ];
+my $retrograde = [ reverse @$notes ];
+my $inverted = $md->invert($scale_note . 5, $notes);
+my $retro_inv = [ reverse @$inverted ];
+
+for my $phrase ($notes, $retrograde, $inverted, $retro_inv) {
+    @$phrase = MIDI::Util::midi_format(@$phrase);
+    print ddc($phrase);
+}
+
+for my $n (0 .. $#$notes) {
+    $score->n('qn', $notes->[$n], $inverted->[$n]);
+}
+for my $n (0 .. $#$retrograde) {
+    $score->n('qn', $retrograde->[$n], $retro_inv->[$n]);
+}
+
+$score->write_score("$0.mid");
