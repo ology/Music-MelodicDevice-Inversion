@@ -1,6 +1,9 @@
 Revision history for Music-MelodicDevice-Inversion
 
 {{$NEXT}}
+    - Add the eg/tandem program.
+
+0.0105 2020-12-15 16:01:38
     - Add yet another test from the wikipedia link.
     - Improve documentation.
 
