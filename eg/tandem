@@ -31,7 +31,7 @@ my @scale = (
 
 my $notes = [ map { $scale[int rand @scale] } 1 .. $max ];
 my $retrograde = [ reverse @$notes ];
-my $inverted = $md->invert($scale_note . 5, $notes);
+my $inverted = $md->invert($notes->[0], $notes);
 my $retro_inv = [ reverse @$inverted ];
 
 for my $phrase ($notes, $retrograde, $inverted, $retro_inv) {
