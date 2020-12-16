@@ -12,9 +12,9 @@ use MIDI::Util;
 use Music::MelodicDevice::Inversion;
 use Music::Scales qw(get_scale_notes);
 
-my $max = shift || 12;
-my $scale_note = shift || 'C';
-my $scale_name = shift || 'chromatic';
+my $max = 12;
+my $scale_note = 'C';
+my $scale_name = 'chromatic';
 
 my $score = MIDI::Util::setup_score();
 
