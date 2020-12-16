@@ -12,7 +12,7 @@ use MIDI::Util;
 use Music::MelodicDevice::Inversion;
 use Music::Scales qw(get_scale_notes);
 
-my $max = shift || 4;
+my $max = shift || 12;
 my $scale_note = shift || 'C';
 my $scale_name = shift || 'chromatic';
 
@@ -27,9 +27,20 @@ my $md = Music::MelodicDevice::Inversion->new(
 my @scale = (
     (map { $_ . 4 } get_scale_notes($scale_note, $scale_name)),
     (map { $_ . 5 } get_scale_notes($scale_note, $scale_name)),
+    'C6'
 );
 
-my $notes = [ map { $scale[int rand @scale] } 1 .. $max ];
+my %seen;
+my $notes;
+my $note = $scale[int rand @scale];
+(my $name = $note) =~ s/^([A-G][#b]?)\d+$/$1/;
+for my $n (1 .. $max) {
+    while ($seen{$name}++) {
+        $note = $scale[int rand @scale];
+        ($name = $note) =~ s/^([A-G][#b]?)\d+$/$1/;
+    }
+    push @$notes, $note;
+}
 my $retrograde = [ reverse @$notes ];
 my $inverted = $md->invert($notes->[0], $notes);
 my $retro_inv = [ reverse @$inverted ];
