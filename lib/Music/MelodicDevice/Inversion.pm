@@ -7,7 +7,6 @@ our $VERSION = '0.0106';
 use Data::Dumper::Compact qw(ddc);
 use List::SomeUtils qw(first_index);
 use Music::Scales qw(get_scale_notes is_scale);
-use Music::Note;
 use Moo;
 use strictures 2;
 use namespace::clean;
@@ -125,13 +124,8 @@ sub intervals {
 
     my @pitches;
 
-    if ($self->scale_name eq 'chromatic') {
-        @pitches = map { Music::Note->new($_, 'ISO')->format('midinum') } @$notes;
-    }
-    else {
-        for my $note (@$notes) {
-            push @pitches, first_index { $_ eq $note } @{ $self->_scale };
-        }
+    for my $note (@$notes) {
+        push @pitches, first_index { $_ eq $note } @{ $self->_scale };
     }
     print 'Pitches: ', ddc(\@pitches) if $self->verbose;
 
