@@ -1,6 +1,10 @@
 Revision history for Music-MelodicDevice-Inversion
 
 {{$NEXT}}
+    - Remove the redundant "chromatic" logic.
+    - Drop the dependency on Music::Note.
+
+0.0106 2020-12-16 05:07:12
     - Add the eg/tandem program à la Schönberg.
 
 0.0105 2020-12-15 16:01:38
