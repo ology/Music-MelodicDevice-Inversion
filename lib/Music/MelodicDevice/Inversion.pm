@@ -87,6 +87,25 @@ sub _build__scale {
     return \@with_octaves;
 }
 
+has _enharmonics => (
+    is        => 'lazy',
+    init_args => undef,
+);
+
+sub _build__enharmonics {
+  my ($self) = @_;
+  my %enharmonics = (
+      'C#' => 'Db',
+      'D#' => 'Eb',
+      'E#' => 'F',
+      'F#' => 'Gb',
+      'G#' => 'Ab',
+      'A#' => 'Bb',
+      'B#' => 'C',
+  );
+  return { %enharmonics, reverse %enharmonics }
+}
+
 =head2 verbose
 
 Default: C<0>
@@ -125,7 +144,8 @@ sub intervals {
     my @pitches;
 
     for my $note (@$notes) {
-        push @pitches, first_index { $_ eq $note } @{ $self->_scale };
+        (my $i, $note) = $self->_find_pitch($note);
+        push @pitches, $i;
     }
     print 'Pitches: ', ddc(\@pitches) if $self->verbose;
 
@@ -160,7 +180,8 @@ sub invert {
 
     for my $interval (@$intervals) {
         # Find the note that is the opposite interval away from the original note
-        my $pitch = $self->_scale->[ (first_index { $_ eq $note } @{ $self->_scale }) - $interval ];
+        (my $i, $note) = $self->_find_pitch($note);
+        my $pitch = $self->_scale->[ $i - $interval ];
 
         push @inverted, $pitch;
 
@@ -170,6 +191,17 @@ sub invert {
     print 'Inverted: ', ddc(\@inverted) if $self->verbose;
 
     return \@inverted;
+}
+
+sub _find_pitch {
+    my ($self, $pitch) = @_;
+    my $i = first_index { $_ eq $pitch } @{ $self->_scale };
+    if ($i == -1) {
+        my $enharmonics = $self->_enharmonics;
+        $pitch =~ s/^([A-G][#b]?)(\d+)$/$enharmonics->{$1}$2/;
+        $i = first_index { $_ eq $pitch } @{ $self->_scale };
+    }
+    return $i, $pitch;
 }
 
 1;
