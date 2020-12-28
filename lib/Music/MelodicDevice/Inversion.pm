@@ -6,10 +6,13 @@ our $VERSION = '0.0300';
 
 use Data::Dumper::Compact qw(ddc);
 use List::SomeUtils qw(first_index);
-use Music::Scales qw(get_scale_notes is_scale);
+use Music::Note;
+use Music::Scales qw(get_scale_MIDI is_scale);
 use Moo;
 use strictures 2;
 use namespace::clean;
+
+use constant OCTAVES => 10;
 
 =head1 SYNOPSIS
 
@@ -78,32 +81,10 @@ has _scale => (
 sub _build__scale {
     my ($self) = @_;
 
-    my @scale = get_scale_notes($self->scale_note, $self->scale_name);
+    my @scale = map { get_scale_MIDI($self->scale_note, $_, $self->scale_name) } -1 .. OCTAVES - 1;
     print 'Scale: ', ddc(\@scale) if $self->verbose;
 
-    my @with_octaves = map { my $o = $_; map { $_ . $o } @scale } 0 .. 10;
-    print 'With octaves: ', ddc(\@with_octaves) if $self->verbose;
-
-    return \@with_octaves;
-}
-
-has _enharmonics => (
-    is        => 'lazy',
-    init_args => undef,
-);
-
-sub _build__enharmonics {
-  my ($self) = @_;
-  my %enharmonics = (
-      'C#' => 'Db',
-      'D#' => 'Eb',
-      'E#' => 'F',
-      'F#' => 'Gb',
-      'G#' => 'Ab',
-      'A#' => 'Bb',
-      'B#' => 'C',
-  );
-  return { %enharmonics, reverse %enharmonics }
+    return \@scale;
 }
 
 =head2 verbose
@@ -144,7 +125,7 @@ sub intervals {
     my @pitches;
 
     for my $note (@$notes) {
-        (my $i, $note) = $self->_find_pitch($note);
+        my ($i, $pitch) = $self->_find_pitch($note);
         push @pitches, $i;
     }
     print 'Pitches: ', ddc(\@pitches) if $self->verbose;
@@ -183,9 +164,9 @@ sub invert {
         (my $i, $note) = $self->_find_pitch($note);
         my $pitch = $self->_scale->[ $i - $interval ];
 
-        push @inverted, $pitch;
+        $note = Music::Note->new($pitch, 'midinum')->format('ISO');
 
-        $note = $pitch;
+        push @inverted, $note;
     }
 
     print 'Inverted: ', ddc(\@inverted) if $self->verbose;
@@ -195,12 +176,8 @@ sub invert {
 
 sub _find_pitch {
     my ($self, $pitch) = @_;
+    $pitch = Music::Note->new($pitch, 'ISO')->format('midinum');
     my $i = first_index { $_ eq $pitch } @{ $self->_scale };
-    if ($i == -1) {
-        my $enharmonics = $self->_enharmonics;
-        $pitch =~ s/^([A-G][#b]?)(\d+)$/$enharmonics->{$1}$2/;
-        $i = first_index { $_ eq $pitch } @{ $self->_scale };
-    }
     return $i, $pitch;
 }
 
