@@ -22,12 +22,12 @@ use constant OCTAVES => 10;
 
   # Chromatic
   my $md = Music::MelodicDevice::Inversion->new;
-  my $intervals = $md->intervals(\@notes); # [4, -2, 5, 5]
+  my $intervals = $md->intervals(\@notes);   # [4, -2, 5, 5]
   my $inverted = $md->invert('C4', \@notes); # [C4, G#3, A#3, F3, C3]
 
   # Diatonic
   $md = Music::MelodicDevice::Inversion->new(scale_name => 'major');
-  $intervals = $md->intervals(\@notes); # [2, -1, 3, 3]
+  $intervals = $md->intervals(\@notes);   # [2, -1, 3, 3]
   $inverted = $md->invert('C4', \@notes); # [C4, A3, B3, F3, C3]
 
 =head1 DESCRIPTION
@@ -106,7 +106,7 @@ has verbose => (
   $md = Music::MelodicDevice::Inversion->new(
     scale_note => $scale_note,
     scale_name => $scale_name,
-    verbose => $verbose,
+    verbose    => $verbose,
   );
 
 Create a new C<Music::MelodicDevice::Inversion> object.
