@@ -1,6 +1,7 @@
 Revision history for Music-MelodicDevice-Inversion
 
 {{$NEXT}}
+    - Allow inversion of integer pitches.
     - Update eg/ programs.
 
 0.0400 2020-12-28 13:20:48

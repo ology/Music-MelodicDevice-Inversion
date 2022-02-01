@@ -155,6 +155,8 @@ Return the inverted series of notes.
 sub invert {
     my ($self, $note, $notes) = @_;
 
+    my $named = $note =~ /[A-G]/ ? 1 : 0;
+
     my @inverted = ($note);
 
     my $intervals = $self->intervals($notes);
@@ -164,7 +166,9 @@ sub invert {
         (my $i, $note) = $self->_find_pitch($note);
         my $pitch = $self->_scale->[ $i - $interval ];
 
-        $note = Music::Note->new($pitch, 'midinum')->format('ISO');
+        $note = $named
+            ? Music::Note->new($pitch, 'midinum')->format('ISO')
+            : $pitch;
 
         push @inverted, $note;
     }
@@ -176,8 +180,12 @@ sub invert {
 
 sub _find_pitch {
     my ($self, $pitch) = @_;
-    $pitch = Music::Note->new($pitch, 'ISO')->format('midinum');
+
+    $pitch = Music::Note->new($pitch, 'ISO')->format('midinum')
+        if $pitch =~ /[A-G]/;
+
     my $i = first_index { $_ eq $pitch } @{ $self->_scale };
+
     return $i, $pitch;
 }
 
