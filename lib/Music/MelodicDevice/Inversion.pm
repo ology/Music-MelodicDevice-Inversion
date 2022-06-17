@@ -66,7 +66,7 @@ B<scale_note>.
 
 Please see L<Music::Scales/SCALES> for a list of valid scale names.
 
-=for Pod::Coverage OCTAVE
+=for Pod::Coverage OCTAVES
 
 =cut
 
