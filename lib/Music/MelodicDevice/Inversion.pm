@@ -4,11 +4,11 @@ package Music::MelodicDevice::Inversion;
 
 our $VERSION = '0.0502';
 
+use Moo;
 use strictures 2;
 use Data::Dumper::Compact qw(ddc);
 use List::SomeUtils qw(first_index);
 use Music::Scales qw(get_scale_MIDI is_scale);
-use Moo;
 use namespace::clean;
 
 with('Music::PitchNum');
