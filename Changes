@@ -2,6 +2,10 @@ Revision history for Music-MelodicDevice-Inversion
 
 {{$NEXT}}
 
+0.0504 2023-11-25 23:14:29
+    - Improve documentation.
+    - Improve tests.
+
 0.0503 2023-11-25 23:00:50
     - Add subtests.
 
