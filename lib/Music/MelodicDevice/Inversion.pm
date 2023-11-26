@@ -17,7 +17,7 @@ use constant OCTAVES => 10;
 
 =head1 SYNOPSIS
 
-  use Music::MelodicDevice::Inversion;
+  use Music::MelodicDevice::Inversion ();
 
   my @notes = qw(C4 E4 D4 G4 C5); # either named notes or midinums
 
