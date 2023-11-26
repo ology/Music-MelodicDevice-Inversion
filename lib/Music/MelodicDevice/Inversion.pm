@@ -2,7 +2,7 @@ package Music::MelodicDevice::Inversion;
 
 # ABSTRACT: Apply melodic inversion to a series of notes
 
-our $VERSION = '0.0502';
+our $VERSION = '0.0503';
 
 use Moo;
 use strictures 2;
