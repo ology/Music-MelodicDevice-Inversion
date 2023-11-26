@@ -7,10 +7,11 @@ use Test::More;
 use_ok 'Music::MelodicDevice::Inversion';
 
 my $obj = new_ok 'Music::MelodicDevice::Inversion';
+my $notes = [qw(A4 C5 B4 A4 E5)];
+my $nums  = [qw(69 72 71 69 76)];
 
 subtest note_names => sub {
     # https://music.stackexchange.com/questions/32507/what-is-melodic-inversion-and-how-to-do-it/
-    my $notes = [qw(A4 C5 B4 A4 E5)];
     my $expect = [qw(3 -1 -2 7)];
     my $got = $obj->intervals($notes);
     is_deeply $got, $expect, 'intervals';
@@ -20,8 +21,6 @@ subtest note_names => sub {
 };
 
 subtest note_nums => sub {
-    my $notes = [qw(A4 C5 B4 A4 E5)];
-    my $nums = [qw(69 72 71 69 76)];
     my $expect = [qw(3 -1 -2 7)];
     my $got = $obj->intervals($nums);
     is_deeply $got, $expect, 'intervals';
@@ -32,7 +31,7 @@ subtest note_nums => sub {
 
 subtest chromatic => sub {
     # https://en.wikipedia.org/wiki/Inversion_(music)#Melodies
-    my $notes = ['A#4','E4','F#4','D#4','F4','A4','D5','C#5','G4','G#4','B4','C5'];
+    $notes = ['A#4','E4','F#4','D#4','F4','A4','D5','C#5','G4','G#4','B4','C5'];
     my $expect = [qw(-6 2 -3 2 4 5 -1 -6 1 3 1)];
     my $got = $obj->intervals($notes);
     is_deeply $got, $expect, 'intervals';
@@ -50,8 +49,8 @@ subtest chromatic => sub {
 };
 
 subtest diatonic => sub {
-    my $notes = [qw(C4 E4 D4 G4 C5)];
-    my $obj = new_ok 'Music::MelodicDevice::Inversion' => [ scale_name => 'major' ];
+    $obj = new_ok 'Music::MelodicDevice::Inversion' => [ scale_name => 'major' ];
+    $notes = [qw(C4 E4 D4 G4 C5)];
     my $expect = [qw(2 -1 3 3)];
     my $got = $obj->intervals($notes);
     is_deeply $got, $expect, 'intervals';
